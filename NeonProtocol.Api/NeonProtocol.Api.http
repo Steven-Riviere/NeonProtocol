@@ -1,0 +1,6 @@
+@NeonProtocol.Api_HostAddress = http://localhost:5272
+
+GET {{NeonProtocol.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
