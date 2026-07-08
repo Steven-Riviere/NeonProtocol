@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using NeonProtocol.Api.Data;
 using Microsoft.OpenApi.Models;
+using NeonProtocol.Api.Repositories;
+using NeonProtocol.Api.Repositories.Interfaces;
+using NeonProtocol.Api.Services;
+using NeonProtocol.Api.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +21,12 @@ builder.Services.AddSwaggerGen(option =>
 });
 builder.Services.AddDbContext<NeonProtocolDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
+builder.Services.AddScoped<IGameSessionRepository, GameSessionRepository>();
+builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<IGameSessionService, GameSessionService>();
+
 
 var app = builder.Build();
 
