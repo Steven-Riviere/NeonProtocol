@@ -17,9 +17,7 @@ public class NeonProtocolDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Player>()
-            .HasMany(p => p.GameSessions)
-            .WithOne(gs => gs.Player)
-            .HasForeignKey(gs => gs.PlayerId);
+        modelBuilder.ApplyConfigurationsFromAssembly(
+            typeof(NeonProtocolDbContext).Assembly);
     }
 }
