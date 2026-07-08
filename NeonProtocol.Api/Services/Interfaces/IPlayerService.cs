@@ -4,5 +4,5 @@ namespace NeonProtocol.Api.Services.Interfaces;
 
 public interface IPlayerService
 {
-    Task<Player> GetOrCreateAsync(string pseudo);
+    Task<Player> CreateAsync(string pseudo);
 }

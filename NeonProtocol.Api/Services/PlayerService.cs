@@ -1,6 +1,8 @@
 using NeonProtocol.Api.Entities;
-using NeonProtocol.Api.Services.Interfaces;
 using NeonProtocol.Api.Repositories.Interfaces;
+using NeonProtocol.Api.Services.Interfaces;
+
+namespace NeonProtocol.Api.Services;
 
 public class PlayerService : IPlayerService
 {
@@ -11,21 +13,21 @@ public class PlayerService : IPlayerService
         _playerRepository = playerRepository;
     }
 
-    public async Task<Player> GetOrCreateAsync(string pseudo)
+
+    public async Task<Player> CreateAsync(string pseudo)
     {
-        var existingPlayer = await _playerRepository.GetByPseudoAsync(pseudo);
-        if (existingPlayer != null)
-        {
-            return existingPlayer;
-        }
+        pseudo = pseudo.Trim();
+
 
         var player = new Player
         {
             Pseudo = pseudo
         };
 
+
         await _playerRepository.AddAsync(player);
         await _playerRepository.SaveChangesAsync();
+
 
         return player;
     }
