@@ -1,6 +1,7 @@
 using NeonProtocol.Api.Data;
 using NeonProtocol.Api.Entities;
 using NeonProtocol.Api.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace NeonProtocol.Api.Repositories;
 
@@ -19,9 +20,17 @@ public class GameSessionRepository : IGameSessionRepository
         await _context.GameSessions.AddAsync(gameSession);
     }
 
-
     public async Task SaveChangesAsync()
     {
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<List<GameSession>> GetLeaderboardAsync(int limit)
+    {
+        return await _context.GameSessions
+            .Include(gs => gs.Player)
+            .OrderByDescending(gs => gs.Score)
+            .Take(limit)
+            .ToListAsync();
     }
 }

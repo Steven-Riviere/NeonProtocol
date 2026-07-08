@@ -5,4 +5,6 @@ namespace NeonProtocol.Api.Services.Interfaces;
 public interface IGameSessionService
 {
     Task<GameSession> CreateAsync(GameSession gameSession);
+
+    Task<List<GameSession>> GetLeaderboardAsync(int limit);
 }

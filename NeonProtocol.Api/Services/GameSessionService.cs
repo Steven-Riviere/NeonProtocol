@@ -1,6 +1,7 @@
 using NeonProtocol.Api.Entities;
 using NeonProtocol.Api.Repositories.Interfaces;
 using NeonProtocol.Api.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace NeonProtocol.Api.Services;
 
@@ -20,5 +21,20 @@ public class GameSessionService : IGameSessionService
         await _gameSessionRepository.SaveChangesAsync();
 
         return gameSession;
+    }
+
+    public async Task<List<GameSession>> GetLeaderboardAsync(int limit)
+    {
+        if (limit <= 0)
+        {
+            limit = 10;
+        }
+
+        if (limit > 25)
+        {
+            limit = 25;
+        }
+
+        return await _gameSessionRepository.GetLeaderboardAsync(limit);
     }
 }

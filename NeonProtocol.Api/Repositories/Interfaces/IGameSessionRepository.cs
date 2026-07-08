@@ -7,4 +7,6 @@ public interface IGameSessionRepository
     Task AddAsync(GameSession gameSession);
 
     Task SaveChangesAsync();
+
+    Task<List<GameSession>> GetLeaderboardAsync(int limit);
 }

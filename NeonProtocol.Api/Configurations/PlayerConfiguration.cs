@@ -10,8 +10,5 @@ public class PlayerConfiguration : IEntityTypeConfiguration<Player>
         builder.Property(p => p.Pseudo)
             .IsRequired()
             .HasMaxLength(13);
-
-        builder.HasIndex(p => p.Pseudo)
-            .IsUnique();
     }
 }

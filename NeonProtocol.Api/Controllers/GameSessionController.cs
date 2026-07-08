@@ -48,4 +48,20 @@ public class GameSessionController : ControllerBase
 
         return Ok(response);
     }
+
+    [HttpGet("leaderboard")]
+    public async Task<ActionResult<List<LeaderboardEntryDto>>> GetLeaderboard()
+    {
+        var gameSessions = await _gameSessionService.GetLeaderboardAsync(10);
+
+        var leaderboard = gameSessions.Select(gs => new LeaderboardEntryDto
+        {
+            Pseudo = gs.Player.Pseudo,
+            Score = gs.Score,
+            LevelReached = gs.LevelReached,
+            CreatedAt = gs.CreatedAt
+        }).ToList();
+
+        return Ok(leaderboard);
+    }
 }
